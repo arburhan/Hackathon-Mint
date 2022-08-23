@@ -17,7 +17,7 @@ const WhyParticipate = () => {
     return (
         <section>
             <h2 className="text-3xl">Why Participate in <span className='text-[#44924C]' >AI Challenges?</span> </h2>
-            <div className=' flex flex-col md:grid md:grid-cols-2' >
+            <div className=' flex flex-col md:grid md:grid-cols-2 gap-9 md:px-[80px] px-[20px] py-[20px] md:py-[40px] ' >
                 <WhyPCard image={Notebook} cardTitle={cardTitle1} description={description1} ></WhyPCard>
                 <WhyPCard image={Team} cardTitle={cardTitle2} description={description2} ></WhyPCard>
                 <WhyPCard image={Robot} cardTitle={cardTitle3} description={description3} ></WhyPCard>
