@@ -11,3 +11,20 @@
 .search-inputField {
     padding: 8px 8px 8px 50px;
 }
+
+/* responsive searchbar */
+@media only screen and (max-width:768px) {
+    .searchParent {
+        position: relative;
+    }
+
+    .searchIcon {
+        position: absolute;
+        top: 10px;
+        left: 60px;
+    }
+
+    .search-inputField {
+        padding: 8px 8px 8px 40px;
+    }
+}
