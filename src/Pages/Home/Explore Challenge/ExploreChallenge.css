@@ -1,0 +1,13 @@
+.searchParent {
+    position: relative;
+}
+
+.searchIcon {
+    position: absolute;
+    top: 10px;
+    left: 350px;
+}
+
+.search-inputField {
+    padding: 8px 8px 8px 50px;
+}
