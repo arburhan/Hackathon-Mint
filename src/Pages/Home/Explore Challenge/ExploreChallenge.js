@@ -4,7 +4,7 @@ import './ExploreChallenge.css';
 const ExploreChallenge = () => {
     return (
         <section className='bg-[#002A3B] py-[70px]' >
-            <h3 className='text-center text-3xl text-white py-5' >Explore Challenge</h3>
+            <h3 className='text-center text-3xl text-white py-10' >Explore Challenge</h3>
             <div className='text-center' >
                 <div className='searchParent flex justify-center items-center' >
                     <input className='rounded-md w-[75%] md:w-[50%] placeholder:font-[300] search-inputField' type="text" name="search" id="" placeholder='Search ' />
