@@ -15,8 +15,8 @@ const WhyParticipate = () => {
     const description3 = "There is nothing for you to lose by participating in a challenge. You can fail safe, learn out of the entire experience and bounce back harder.";
     const description4 = "You will stand out from the crowd if you do well in AI challenges, it not only helps you shine in the community but also earns rewards.";
     return (
-        <section className='py-[90px]' >
-            <h2 className="text-3xl text-center py-[30px]">Why Participate in <span className='text-[#44924C] ' >AI Challenges?</span> </h2>
+        <section className='py-[90px] bg-white' >
+            <h2 className="text-3xl text-center py-[30px] text-black">Why Participate in <span className='text-[#44924C] ' >AI Challenges?</span> </h2>
             <div className=' flex flex-col md:grid md:grid-cols-2 gap-9 md:px-[80px] px-[20px] py-[20px] md:py-[40px] ' >
                 <WhyPCard image={Notebook} cardTitle={cardTitle1} description={description1} ></WhyPCard>
                 <WhyPCard image={Team} cardTitle={cardTitle2} description={description2} ></WhyPCard>

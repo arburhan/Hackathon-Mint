@@ -2,7 +2,7 @@ import React from 'react';
 
 const WhyPCard = ({ image, cardTitle, description }) => {
     return (
-        <div className='px-[30px] py-[60px] bg-[#F8F9FD] rounded-xl' >
+        <div className='px-[35px] py-[60px] bg-[#e8ebf7] rounded-xl cursor-pointer hover:bg-[#F8F9FD]' >
             <figure>
                 <img src={image} alt="" />
             </figure>
