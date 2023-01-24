@@ -1,13 +1,16 @@
 import React from 'react';
 import { useState } from 'react';
+import ChallengeCard from './ChallengeCard';
+import { challengeData } from './challengeData';
 import './ExploreChallenge.css';
 
 const ExploreChallenge = () => {
-    const [drop, setDrop] = useState(false);
+    const [dropdown, setDropdown] = useState(false);
+    const [hackData, setHackData] = useState({});
 
     return (
         <section className='bg-[#002A3B] py-[70px] relative' >
-            <h3 className='text-3xl text-white py-10' >Explore Challenge</h3>
+            <h3 className='text-3xl text-white py-10 text-center' >Explore Challenge</h3>
             <div className='pl-[150px] flex gap-4' >
                 <div className='relative' >
                     <span className='absolute top-2 left-3' >
@@ -29,13 +32,13 @@ const ExploreChallenge = () => {
                             </div>
                         </optgroup>
                     </select> */}
-                    {drop === false ?
+                    {dropdown === false ?
                         <div
                             onClick={() => {
-                                setDrop(true)
+                                setDropdown(true)
                             }}
                             className='flex duration-100   absolute bg-white p-2 rounded-md text-black' >
-                            <p>Filter</p>
+                            <p className='px-2' >Filter</p>
                             <figure className='pl-2' >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -44,10 +47,10 @@ const ExploreChallenge = () => {
                         </div>
                         :
                         <div
-                            className='duration-100  w-[290px] bg-white pl-4 py-6 rounded-md text-black absolute' >
+                            className='duration-100  w-[290px] bg-white pl-4 py-6 rounded-md text-black absolute z-10 shadow-2xl' >
                             <div
                                 onClick={() => {
-                                    setDrop(false)
+                                    setDropdown(false)
                                 }}
                                 className='flex justify-between items-center pb-[14px]' >
                                 <p className='text-lg' >Filter</p>
@@ -80,10 +83,12 @@ const ExploreChallenge = () => {
                     }
                 </div>
             </div>
-            <div className=''>
-
+            <div className='grid grid-cols-3 justify-items-center gap-y-14  py-10' >
+                {
+                    challengeData.map(data => <ChallengeCard key={data?._id} data={data} ></ChallengeCard>)
+                }
             </div>
-        </section>
+        </section >
     );
 };
 
