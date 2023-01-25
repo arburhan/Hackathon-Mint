@@ -3,7 +3,8 @@
 }
 
 /* responsive searchbar */
-@media only screen and (max-width:768px) {
+@media only screen and (max-width:640px) {
+
     .searchParent {
         position: relative;
     }
@@ -16,5 +17,9 @@
 
     .search-inputField {
         padding: 8px 8px 8px 40px;
+    }
+
+    .smFilterBtn {
+        left: 110px;
     }
 }
