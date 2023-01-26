@@ -4,9 +4,13 @@ import ChallengeCard from './ChallengeCard';
 import { challengeData } from './challengeData';
 import CheckboxFilter from './CheckboxFilter';
 import './ExploreChallenge.css';
+import { useForm } from "react-hook-form";
 
 const ExploreChallenge = () => {
     const [dropdown, setDropdown] = useState(false);
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    const onSubmit = (data) => console.log(data);
+
     // const [hackData, setHackData] = useState({});
 
     const statusData = [
@@ -57,54 +61,55 @@ const ExploreChallenge = () => {
                         <input className='rounded-md  md:w-[380px] lg:w-[580px] xl:w-[830px] placeholder:font-[300] search-inputField' type="text" name="search" id="" placeholder='Search ' />
                     </div>
                     <div>
-                        {dropdown === false ?
+                        <div
+                            onClick={() => {
+                                setDropdown(true)
+                            }}
+                            className={!dropdown ? "flex duration-100 absolute bg-white p-2 rounded-md text-black cursor-pointer smFilterBtn " : "hidden"} >
+                            <p className='px-2' >Filter</p>
+                            <figure className='pl-2' >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </figure>
+                        </div>
+
+                        <div
+                            className={dropdown ? 'duration-100 w-[200px] md:w-[290px] lg:w-[260px] xl:w-[290px] bg-white pl-4 pt-6 pb-3 rounded-md text-black absolute z-10  shadow-2xl smFilterBtn' : "hidden"} >
                             <div
                                 onClick={() => {
-                                    setDropdown(true)
+                                    setDropdown(false)
                                 }}
-                                className='flex duration-100   absolute bg-white p-2 rounded-md text-black cursor-pointer smFilterBtn' >
-                                <p className='px-2' >Filter</p>
-                                <figure className='pl-2' >
+                                className='flex justify-between items-center pb-[14px] cursor-pointer' >
+                                <p className='text-lg' >Filter</p>
+                                <figure className='pr-7' >
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </figure>
                             </div>
-                            :
-                            <div
-                                className='duration-100 w-[200px] md:w-[290px] lg:w-[260px] xl:w-[290px] bg-white pl-4 pt-6 pb-3 rounded-md text-black absolute z-10  shadow-2xl smFilterBtn' >
-                                <div
-                                    onClick={() => {
-                                        setDropdown(false)
-                                    }}
-                                    className='flex justify-between items-center pb-[14px] cursor-pointer' >
-                                    <p className='text-lg' >Filter</p>
-                                    <figure className='pr-7' >
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                        </svg>
-                                    </figure>
-                                </div>
-                                <hr className='px-2 text-[#ECECEC] w-[170px] xl:w-[265.01px]' />
-                                <div className='py-4' >
+                            <hr className='px-2 text-[#ECECEC] w-[170px] xl:w-[265.01px]' />
+                            <div className='py-4' >
+                                <form onSubmit={handleSubmit(onSubmit)}>
                                     <fieldset>
                                         <legend className='text-[#666666]' >Status</legend>
                                         {
                                             statusData.map(status => <CheckboxFilter key={status._id} status={status} />)
                                         }
                                     </fieldset>
-                                </div>
-                                <hr className='px-2 text-[#ECECEC] w-[170px] xl:w-[265.01px]' />
-                                <div className='py-4'>
-                                    <fieldset>
-                                        <legend className='text-[#666666]' >Level</legend>
-                                        {
-                                            levelData.map(status => <CheckboxFilter key={status._id} status={status} />)
-                                        }
-                                    </fieldset>
-                                </div>
+                                </form>
                             </div>
-                        }
+                            <hr className='px-2 text-[#ECECEC] w-[170px] xl:w-[265.01px]' />
+                            <div className='py-4'>
+                                <fieldset>
+                                    <legend className='text-[#666666]' >Level</legend>
+                                    {
+                                        levelData.map(status => <CheckboxFilter key={status._id} status={status} />)
+                                    }
+                                </fieldset>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
