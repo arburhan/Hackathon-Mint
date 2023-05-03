@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useForm } from "react-hook-form";
 
 const AdminPage = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = (data) => console.log(data);
+    const [previewImage, setPreviewImage] = useState("");
+    const { register, getValues, setError, formState: { errors }, handleSubmit, watch } = useForm({ mode: "onBlur" });
+    const startDate = watch('startDate');
+    const endDate = watch('endDate');
+
+    useEffect(() => {
+        if (startDate && endDate && startDate > endDate) {
+            setError('endDate', { type: 'manual', message: 'End date must be after start date' });
+        }
+    }, [startDate, endDate, setError]);
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+            setPreviewImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const onSubmit = (data) => {
+        console.log(data);
+
+    };
+
 
     return (
         <section className='bg-white text-black px-2 md:pl-[90px] py-8 ' >
@@ -39,20 +61,16 @@ const AdminPage = () => {
                             type="date"
                             placeholder="Add Start Date"
                             className="input input-bordered w-full max-w-md  border-[#B7B7B7] bg-white"
-                            {...register("endEate", {
+                            {...register("startDate", {
                                 required: {
                                     value: true,
                                     message: 'Date is Required'
-                                }/* ,
-                                pattern: {
-                                    value: /(^(?:(?:(?:31(?:(?:([-.\/])(?:0?[13578]|1[02])\2)|(?:([-.\/ ])(?:Jan|JAN|Mar|MAR|May|MAY|Jul|JUL|Aug|AUG|Oct|OCT|Dec|DEC)\3)))|(?:(?:29|30)(?:(?:([-.\/])(?:0?[13-9]|1[0-2])\4)|(?:([-.\/ ])(?:Jan|JAN|Mar|MAR|Apr|APR|May|MAY|Jun|JUN|Jul|JUL|Aug|AUG|Sep|SEP|Oct|OCT|Nov|NOV|Dec|DEC)\5))))(?:(?:1[6-9]|[2-9]\d)?\d{2}))$|^(?:29(?:(?:([-.\/])(?:0?2)\6)|(?:([-.\/ ])(?:Feb|FEB)\7))(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))$|^(?:(?:0?[1-9]|1\d|2[0-8])(?:(?:([-.\/])(?:(?:0?[1-9]|(?:1[0-2])))\8)|(?:([-.\/ ])(?:Jan|JAN|Feb|FEB|Mar|MAR|May|MAY|Jul|JUL|Aug|AUG|Oct|OCT|Dec|DEC)\9))(?:(?:1[6-9]|[2-9]\d)?\d{2}))$)/,
-                                    message: 'Provide a valid Date'
-                                } */
+                                }
                             })}
                         />
                         <label className="label">
-                            {errors?.endEate?.type === 'required' && <span className="label-text-alt text-red-500">{errors?.endEate?.message}</span>}
-                            {/* {errors?.endEate?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors?.endEate?.message}</span>} */}
+                            {errors?.startDate?.type === 'required' && <span className="label-text-alt text-red-500">{errors?.startDate?.message}</span>}
+
                         </label>
                     </div>
                     <div className="form-control w-full max-w-md">
@@ -67,16 +85,12 @@ const AdminPage = () => {
                                 required: {
                                     value: true,
                                     message: 'Date is Required'
-                                }/* ,
-                                pattern: {
-                                    value: /(^(?:(?:(?:31(?:(?:([-.\/])(?:0?[13578]|1[02])\2)|(?:([-.\/ ])(?:Jan|JAN|Mar|MAR|May|MAY|Jul|JUL|Aug|AUG|Oct|OCT|Dec|DEC)\3)))|(?:(?:29|30)(?:(?:([-.\/])(?:0?[13-9]|1[0-2])\4)|(?:([-.\/ ])(?:Jan|JAN|Mar|MAR|Apr|APR|May|MAY|Jun|JUN|Jul|JUL|Aug|AUG|Sep|SEP|Oct|OCT|Nov|NOV|Dec|DEC)\5))))(?:(?:1[6-9]|[2-9]\d)?\d{2}))$|^(?:29(?:(?:([-.\/])(?:0?2)\6)|(?:([-.\/ ])(?:Feb|FEB)\7))(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))$|^(?:(?:0?[1-9]|1\d|2[0-8])(?:(?:([-.\/])(?:(?:0?[1-9]|(?:1[0-2])))\8)|(?:([-.\/ ])(?:Jan|JAN|Feb|FEB|Mar|MAR|May|MAY|Jul|JUL|Aug|AUG|Oct|OCT|Dec|DEC)\9))(?:(?:1[6-9]|[2-9]\d)?\d{2}))$)/,
-                                    message: 'Provide a valid Date'
-                                } */
+                                }
                             })}
                         />
                         <label className="label">
                             {errors?.endDate?.type === 'required' && <span className="label-text-alt text-red-500">{errors?.endDate?.message}</span>}
-                            {/* {errors?.endDate?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors?.endDate?.message}</span>} */}
+                            {errors?.endDate?.type === 'manual' && <span className="label-text-alt text-red-500">{errors?.endDate?.message}</span>}
                         </label>
                     </div>
                     <div className="form-control w-full max-w-md">
@@ -129,7 +143,6 @@ const AdminPage = () => {
                         <input
                             type="file"
                             accept="image/*"
-                            onChange="readURL(this)"
                             className="input input-bordered w-full max-w-md border-[#B7B7B7] bg-white"
                             {...register("image", {
                                 required: {
@@ -141,7 +154,10 @@ const AdminPage = () => {
                                     message: 'Provide a jpeg, jpg or png image format'
                                 }
                             })}
+                            onChange={handleImageChange}
                         />
+                        {previewImage && <img src={previewImage}
+                            style={{ width: "150px", height: "150px" }} alt="Preview" />}
 
                         <label className="label">
                             {errors?.image?.type === 'required' && <span className="label-text-alt text-red-500">{errors?.image.message}</span>}
